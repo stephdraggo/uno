@@ -5,7 +5,7 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     #region Variables
-    public CardManager manager;
+    public Deck manager;
     private CardColour colour;
     private CardValue cValue;
     #endregion
@@ -15,7 +15,7 @@ public class Card : MonoBehaviour
         get => colour;
         set
         {
-            if (!manager.cardsInPlay.Contains(this))
+            if (!manager.allCards.Contains(this))
             {
                 colour = value;
             }
@@ -30,7 +30,7 @@ public class Card : MonoBehaviour
         get => cValue;
         set
         {
-            if (!manager.cardsInPlay.Contains(this))
+            if (!manager.allCards.Contains(this))
             {
                 cValue = value;
             }
@@ -43,7 +43,7 @@ public class Card : MonoBehaviour
     #endregion
     void Start()
     {
-        manager = FindObjectOfType<CardManager>();
+        manager = FindObjectOfType<Deck>();
     }
 
     void Update()
