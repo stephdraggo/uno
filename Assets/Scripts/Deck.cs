@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Deck : MonoBehaviour
@@ -15,10 +16,21 @@ public class Deck : MonoBehaviour
     void Start()
     {
         #region Spawn Cards
-        for (int i = 0; i < cardsCount; i++)
+        if (cardPrefab)
         {
-            GameObject newCard = Instantiate(cardPrefab);
-
+            for (int i = 0; i < cardsCount; i++)
+            {
+                GameObject newCard = Instantiate(cardPrefab);
+                if (newCard.TryGetComponent(out Card _card))
+                {
+                    allCards.Add(_card);
+                    cardsInDeck.Add(_card);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("there is no card prefab attached");
         }
         #endregion
     }
@@ -71,6 +83,7 @@ public class Deck : MonoBehaviour
 
             foreach (int _index in _indexHolder) //for every position in array
             {
+                EditorApplication.ExitPlaymode();
                 if (_index == _potentialIndex) //if contains generated number
                 {
                     _available = false; //position is no longer available
@@ -98,6 +111,10 @@ public class Deck : MonoBehaviour
 
     #region Testing
 #if UNITY_EDITOR
+    public void ADDCARDTODECK()
+    {
+
+    }
     public void SHUFFLE()
     {
         Shuffle();

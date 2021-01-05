@@ -49,7 +49,7 @@ public class HandBase : MonoBehaviour
         }
     }
     #region card specific mechanics
-    private void PowerCardAffect()
+    private void PowerCardEffect()
     {
         switch (lastCardPlayed.Value)
         {
